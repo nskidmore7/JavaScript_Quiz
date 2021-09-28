@@ -1,0 +1,54 @@
+
+body {
+    font-family: sans-serif;
+}
+
+#view-score {
+    display: inline;
+    color: darkmagenta;
+    background-color: white;
+}
+
+.time,
+#seconds {
+    float: right;
+}
+
+.container {
+    margin: auto;
+    width: 40%;
+}
+
+h1 {
+    text-align: center;
+    padding-top: 50px;
+}
+
+h2 {
+    padding-top: 50px;
+}
+
+p {
+    line-height: 1.6;
+    
+}
+
+button {
+    padding: 10px;
+    background-color: darkmagenta;
+    color: white;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 2px;
+    display: list-item;
+}
+
+#start-quiz {
+    margin: 0 auto;
+    display: block;
+}
+
+button:hover {
+    opacity: 0.6;
+}
