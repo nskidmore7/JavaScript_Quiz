@@ -5,7 +5,7 @@ body {
 
 #view-score {
     display: inline;
-    color: darkmagenta;
+    color: purple;
     background-color: white;
 }
 
@@ -29,8 +29,7 @@ h2 {
 }
 
 p {
-    line-height: 1.6;
-    
+    text-align: center;
 }
 
 button {
