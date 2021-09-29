@@ -1,172 +1,400 @@
-var questions = [
-    {
-        question: "Commonly used data types DO NOT include:",
-        choices: ["strings", "booleans", "alerts", "numbers"],
-        answer: "alerts"
-    },
-    {
-        question: "The condition in an if / else statement is enclosed within ____.",
-        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-        answer: "parentheses"
-    },
-    {
-        question: "Arrays in Javascript can be used to store ____.",
-        choices: ["numbers and strings", "other arrays", "booleans", "all of the above"],
-        answer: "all of the above"
-    },
-    {
-        question: "String values must be enclosed within ____ when being assigned to variables.",
-        choices: ["commas", "curly brackets", "quotes", "parenthesis"],
-        answer: "quotes"
-    },
-    {
-        question: "A very useful tool for used during development and debugging for printing content to the debugger is:",
-        choices: ["Javascript", "terminal / bash", "for loops", "console log"],
-        answer: "console log"
-    },
+var viewHighscores = document.querySelector("#view-highscores");
+var secondsDisplay = document.querySelector("#seconds");
+var timeLabel = document.querySelector(".time");
+var container = document.querySelector(".container");
+var headerDisplay = document.querySelector("#header");
+var quizInstructions = document.querySelector("#quiz-instructions");
+var startButton = document.querySelector("#start-quiz");
 
-];
-var score = 0;
-var questionIndex = 0;
 
-var currentTime = document.querySelector("#currentTime");
-var timer = document.querySelector("#startTime");
-var questionsDiv = document.querySelector("#questionsDiv");
-var wrapper = document.querySelector("#wrapper");
+var interval;
+var seconds = 75;
+var quizQuestion;
+var optionOneBtn;
+var optionTwoBtn;
+var optionThreeBtn;
+var optionFourBtn;
+var line;
+var correctAnswer;
+var wrongAnswer;
+var scoreMessage;
+var label;
+var input;
+var submitButton;
+var highScoresList;
+var goBackBtn;
+var clearHsBtn;
+var score = 100;
+var user;
+var scoreItem; 
 
-var secondsLeft = 76;
-var holdInterval = 0;
-var penalty = 10;
-var ulCreate = document.createElement("ul");
 
-timer.addEventListener("click", function () {
-    if (holdInterval === 0) {
-        holdInterval = setInterval(function () {
-            secondsLeft--;
-            currentTime.textContent = "Time: " + secondsLeft;
-
-            if (secondsLeft <= 0) {
-                clearInterval(holdInterval);
-                allDone();
-                currentTime.textContent = "Time's up!";
-            }
-        }, 1000);
-    }
-    render(questionIndex);
-});
-
-function render(questionIndex) {
-    questionsDiv.innerHTML = "";
-    ulCreate.innerHTML = "";
-    for (var i = 0; i < questions.length; i++) {
-        var userQuestion = questions[questionIndex].title;
-        var userChoices = questions[questionIndex].choices;
-        questionsDiv.textContent = userQuestion;
-    }
-    userChoices.forEach(function (newItem) {
-        var listItem = document.createElement("li");
-        listItem.textContent = newItem;
-        questionsDiv.appendChild(ulCreate);
-        ulCreate.appendChild(listItem);
-        listItem.addEventListener("click", (compare));
-    })
-}
-function compare(event) {
-    var element = event.target;
-
-    if (element.matches("li")) {
-        var createDiv = document.createElement("div");
-        createDiv.setAttribute("id", "createDiv");
-        if (element.textContent == questions[questionIndex].answer) {
-            score++;
-            createDiv.textContent = "Correct! The answer is:  " + questions[questionIndex].answer;
-        } else {
-            secondsLeft = secondsLeft - penalty;
-            createDiv.textContent = "Wrong! The correct answer is:  " + questions[questionIndex].answer;
+function startTimer(){
+    firstQuestion();
+    interval = setInterval(function() {
+        seconds--;
+        secondsDisplay.textContent = seconds;
+        if(seconds == 0){
+            clearInterval(interval);
         }
+    }, 1000);
+}
+
+function firstQuestion(){
+    removeQuizIntro();
+    createQuestionElements();
+    quizQuestion.innerHTML = "Where in the HTML file should a JavaScript link be placed?";
+    optionOneBtn.innerHTML = "1. Top";
+    optionTwoBtn.innerHTML = "2. Middle";
+    optionThreeBtn.innerHTML = "3. Bottom";
+    optionFourBtn.innerHTML = "4. Right";
+    optionOneBtn.onclick = function(){
+        secondQuestion();
+        deductTime();
+        createLine();
+        wrongAns();
+        deductScore();
     }
+    optionTwoBtn.onclick = function(){
+        secondQuestion();
+        deductTime();
+        createLine();
+        wrongAns();
+        deductScore();
+    }
+    optionThreeBtn.onclick = function(){
+        secondQuestion();
+        createLine();
+        correctAns();
+    }
+    optionFourBtn.onclick = function(){
+        secondQuestion();
+        deductTime();
+        createLine();
+        wrongAns();
+        deductScore();
+    }
+}
 
-    questionIndex++;
+function secondQuestion(){
+    quizQuestion.innerHTML = "In JavaScript, what is a block of code used to perform a particular task called?";
+    optionOneBtn.innerHTML = "1. Function";
+    optionTwoBtn.innerHTML = "2. Array";
+    optionThreeBtn.innerHTML = "3. Element";
+    optionFourBtn.innerHTML = "4. Button";
+    removeAns();
+    optionOneBtn.onclick = function(){
+        thirdQuestion();
+        createLine();
+        correctAns();
+    }
+    optionTwoBtn.onclick = function(){
+        thirdQuestion();
+        deductTime();
+        createLine();
+        wrongAns();
+        deductScore();
+    }
+    optionThreeBtn.onclick = function(){
+        thirdQuestion();
+        deductTime();
+        createLine();
+        wrongAns();
+        deductScore();
+    }
+    optionFourBtn.onclick = function(){
+        thirdQuestion();
+        deductTime();
+        createLine();
+        wrongAns();
+        deductScore();
+    }
+}
 
-    if (questionIndex >= questions.length) {
+function thirdQuestion(){
+    quizQuestion.innerHTML = "In JavaScript, what is the correct method to share something with a user?";
+    optionOneBtn.innerHTML = "1. Prompt";
+    optionTwoBtn.innerHTML = "2. Alert";
+    optionThreeBtn.innerHTML = "3. Confirm";
+    optionFourBtn.innerHTML = "4. Siren";
+    removeAns();
+    optionOneBtn.onclick = function(){
+        fourthQuestion();
+        deductTime();
+        createLine();
+        wrongAns();
+        deductScore();
+    }
+    optionTwoBtn.onclick = function(){
+        fourthQuestion();
+        createLine();
+        correctAns();
+    }
+    optionThreeBtn.onclick = function(){
+        fourthQuestion();
+        deductTime();
+        createLine();
+        wrongAns();
+        deductScore();
+    }
+    optionFourBtn.onclick = function(){
+        fourthQuestion();
+        deductTime();
+        createLine();
+        wrongAns();
+        deductScore();
+    }
+}
+
+function fourthQuestion(){
+    quizQuestion.innerHTML = "How do you declare a variable in JavaScript?";
+    optionOneBtn.innerHTML = "1. variable newVariable; ";
+    optionTwoBtn.innerHTML = "2. va Newvariable; ";
+    optionThreeBtn.innerHTML = "3. v newVariable; ";
+    optionFourBtn.innerHTML = "4. var newVariable; ";
+    removeAns();
+    optionOneBtn.onclick = function(){
+        fifthQuestion();
+        deductTime();
+        createLine();
+        wrongAns();
+        deductScore();
+    }
+    optionTwoBtn.onclick = function(){
+        fifthQuestion();
+        deductTime();
+        createLine();
+        wrongAns();
+        deductScore();
+    }
+    optionThreeBtn.onclick = function(){
+        fifthQuestion();
+        deductTime();
+        createLine();
+        wrongAns();
+        deductScore();
+    }
+    optionFourBtn.onclick = function(){
+        fifthQuestion();
+        createLine();
+        correctAns();
+    }
+}
+
+function fifthQuestion(){
+    quizQuestion.innerHTML = "In Javascript, how do you capture an event triggered by the user?";
+    optionOneBtn.innerHTML = "1. Alert";
+    optionTwoBtn.innerHTML = "2. For loop";
+    optionThreeBtn.innerHTML = "3. Event listener";
+    optionFourBtn.innerHTML = "4. While loop";
+    removeAns();
+    optionOneBtn.onclick = function(){
         allDone();
-        createDiv.textContent = "End of quiz!" + " " + "You got  " + score + "/" + questions.length + " Correct!";
-    } else {
-        render(questionIndex);
+        deductTime();
+        createLine();
+        wrongAns();
+        deductScore();
     }
-    questionsDiv.appendChild(createDiv);
-
+    optionTwoBtn.onclick = function(){
+        allDone();
+        deductTime();
+        createLine();
+        wrongAns();
+        deductScore();
+    }
+    optionThreeBtn.onclick = function(){
+        allDone();
+        createLine();
+        correctAns();
+    }
+    optionFourBtn.onclick = function(){
+        allDone();
+        deductTime();
+        createLine();
+        wrongAns();
+        deductScore();
+    }
 }
 
-function allDone() {
-    questionsDiv.innerHTML = "";
-    currentTime.innerHTML = "";
-
-    var createH1 = document.createElement("h1");
-    createH1.setAttribute("id", "createH1");
-    createH1.textContent = "All Done!"
-
-    questionsDiv.appendChild(createH1);
-
-    var createP = document.createElement("p");
-    createP.setAttribute("id", "createP");
-
-    questionsDiv.appendChild(createP);
-
-    if (secondsLeft >= 0) {
-        var timeRemaining = secondsLeft;
-        var createP2 = document.createElement("p");
-        clearInterval(holdInterval);
-        createP.textContent = "Your final score is: " + timeRemaining;
-
-        questionsDiv.appendChild(createP2);
+function allDone(){
+    clearInterval(interval);
+    removeQuizBtns();
+    removeAns();
+    createAllDoneElements();
+    quizQuestion.innerHTML = "All done!";
+    scoreMessage.textContent = "Your final score is " + score;
+    label.textContent = "Enter Initials: ";
+    submitButton.innerHTML = "Submit";
+    submitButton.onclick = function(){
+        saveUser();
+        highScores();
     }
-
-    var createLabel = document.createElement("label");
-    createLabel.setAttribute("id", "createLabel");
-    createLabel.textContent = "Enter your initials: ";
-
-    questionsDiv.appendChild(createLabel);
-
-    var createInput = document.createElement("input");
-    createInput.setAttribute("type", "text");
-    createInput.setAttribute("id", "initials");
-    createInput.textContent = "";
-
-    questionsDiv.appendChild(createInput);
-
-    var createSubmit = document.createElement("button");
-    createSubmit.setAttribute("type", "submit");
-    createSubmit.setAttribute("id", "Submit");
-    createSubmit.textContent = "Submit";
-
-    questionsDiv.appendChild(createSubmit);
-
-    createSubmit.addEventListener("click", function () {
-        var initials = createInput.value;
-
-        if (initials === null) {
-
-            console.log("No value entered!");
-
-        } else {
-            var finalScore = {
-                initials: initials,
-                score: timeRemaining
-            }
-            console.log(finalScore);
-            var allScores = localStorage.getItem("allScores");
-            if (allScores === null) {
-                allScores = [];
-            } else {
-                allScores = JSON.parse(allScores);
-            }
-            allScores.push(finalScore);
-            var newScore = JSON.stringify(allScores);
-            localStorage.setItem("allScores", newScore);
-            // Travels to final page
-            window.location.replace("./HighScores.html");
-        }
-    });
-
 }
+
+function highScores(){
+    hideNav();
+    removeAllDone();
+    createHighscoresElements(); 
+    clearHsBtn.onclick = function(){
+        localStorage.removeItem("user");
+        localStorage.removeItem("score");
+        highScoresList.remove();
+    }
+    goBackBtn.onclick = function(){
+        goBack();
+    }
+}
+
+function goBack(){
+    removeHighscores();
+    addInitialPage();
+}
+
+function removeQuizIntro(){
+    headerDisplay.style.display = "none";
+    quizInstructions.style.display = "none";
+    startButton.style.display = "none";
+}
+
+function createQuestionElements(){
+    quizQuestion = document.createElement("h2");
+    container.appendChild(quizQuestion);
+    optionOneBtn = document.createElement("button");
+    container.appendChild(optionOneBtn);
+    optionTwoBtn = document.createElement("button");
+    container.appendChild(optionTwoBtn);
+    optionThreeBtn = document.createElement("button");
+    container.appendChild(optionThreeBtn);
+    optionFourBtn = document.createElement("button");
+    container.appendChild(optionFourBtn);
+}
+
+function createLine(){
+    line = document.createElement("hr");
+    container.appendChild(line);
+}
+
+function removeAns(){ 
+    setTimeout(() => {
+        line.remove();
+        correctAnswer.remove();
+        wrongAnswer.remove();
+    }, 500)
+}
+
+function correctAns(){
+    correctAnswer = document.createElement("p");
+    correctAnswer.textContent = "Correct!";
+    container.appendChild(correctAnswer);
+}
+
+function wrongAns(){
+    wrongAnswer = document.createElement("p");
+    wrongAnswer.textContent = "Wrong!";
+    container.appendChild(wrongAnswer);
+}
+
+
+function deductTime(){
+    seconds = seconds - 10;
+}
+
+
+function deductScore(){
+    score = score - 20;
+}
+
+function removeQuizBtns(){
+    optionOneBtn.remove();
+    optionTwoBtn.remove();
+    optionThreeBtn.remove();
+    optionFourBtn.remove();
+}
+
+function createAllDoneElements(){
+    scoreMessage = document.createElement("p");
+    container.appendChild(scoreMessage);
+    label = document.createElement("label");
+    container.appendChild(label);
+    input = document.createElement("input");
+    container.appendChild(input);
+    submitButton = document.createElement("button");
+    submitButton.style.display = "inline";
+    submitButton.style.marginLeft = "5px";
+    container.appendChild(submitButton);
+}
+
+function saveUser(){
+    user = input.value;
+    localStorage.setItem("user", user);
+    localStorage.setItem("score", score);
+}
+
+function hideNav(){
+    viewHighscores.style.visibility = "hidden";
+    secondsDisplay.style.visibility = "hidden";
+    timeLabel.style.visibility = "hidden";
+}
+
+function removeAllDone(){
+    scoreMessage.remove();
+    label.remove();
+    input.remove();
+    submitButton.remove();
+}
+
+function createHighscoresElements(){
+    quizQuestion.innerHTML = "Highscores";
+    highScoresList = document.createElement("ol");
+    highScoresList.style.backgroundColor = "violet";
+    container.appendChild(highScoresList);
+    scoreItem = document.createElement("li");
+    scoreItem.textContent = localStorage.getItem("user") + "-" + localStorage.getItem("score");
+    highScoresList.appendChild(scoreItem);
+    goBackBtn = document.createElement("button");
+    goBackBtn.innerHTML = "Go Back";
+    goBackBtn.style.display = "inline";
+    goBackBtn.style.marginRight = "5px";
+    container.appendChild(goBackBtn);
+    clearHsBtn = document.createElement("button");
+    clearHsBtn.innerHTML = "Clear Highscores";
+    clearHsBtn.style.display = "inline";
+    container.appendChild(clearHsBtn);
+}
+
+function removeHighscores(){
+    quizQuestion.remove();
+    highScoresList.remove();
+    goBackBtn.remove();
+    clearHsBtn.remove();
+}
+
+function addInitialPage(){
+    seconds = 75;
+    score = 100;
+    secondsDisplay.textContent = seconds;
+    viewHighscores.style.visibility = "visible";
+    secondsDisplay.style.visibility = "visible";
+    timeLabel.style.visibility = "visible";
+    headerDisplay.style.display = "block";
+    quizInstructions.style.display = "block";
+    startButton.style.display = "block";
+}
+
+function viewHighscoresFunct(){
+    hideNav();
+    removeQuizIntro();
+    quizQuestion = document.createElement("h2");
+    container.appendChild(quizQuestion);
+    createHighscoresElements(); 
+    clearHsBtn.onclick = function(){
+        localStorage.removeItem("user");
+        localStorage.removeItem("score");
+        highScoresList.remove();
+    }
+    goBackBtn.onclick = function(){
+        goBack();
+    }
+}
+startButton.addEventListener("click", startTimer);
+viewHighscores.addEventListener("click", viewHighscoresFunct);

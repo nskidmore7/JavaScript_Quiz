@@ -3,9 +3,9 @@ body {
     font-family: sans-serif;
 }
 
-#view-score {
+#view-highscores {
     display: inline;
-    color: purple;
+    color: darkmagenta;
     background-color: white;
 }
 
@@ -28,9 +28,6 @@ h2 {
     padding-top: 50px;
 }
 
-p {
-    text-align: center;
-}
 
 button {
     padding: 10px;
