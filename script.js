@@ -43,11 +43,11 @@ function startTimer(){
 function QuestionOne(){
     removeQuizIntro();
     createQuestionElements();
-    Question.innerHTML = "Where in the HTML file should a JavaScript link be placed?";
-    optionA.innerHTML = "A. Top";
-    optionB.innerHTML = "B. Middle";
-    optionC.innerHTML = "C. Bottom";
-    optionD.innerHTML = "D. Right";
+    Question.innerHTML = "Commonly Used Datatypes do not include";
+    optionA.innerHTML = "A. Strings";
+    optionB.innerHTML = "B. Booleans";
+    optionC.innerHTML = "C. Alerts";
+    optionD.innerHTML = "D. Numbers";
     optionA.onclick = function(){
         QuestionTwo();
         deductTime();
