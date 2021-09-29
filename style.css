@@ -3,14 +3,14 @@ body {
     font-family: sans-serif;
 }
 
-#view-highscores {
+#highscore {
     display: inline;
-    color: darkmagenta;
+    color: purple;
     background-color: white;
 }
 
 .time,
-#seconds {
+#clock {
     float: right;
 }
 
@@ -31,20 +31,17 @@ h2 {
 
 button {
     padding: 10px;
-    background-color: darkmagenta;
+    background-color: purple;
     color: white;
-    border-radius: 2px;
-    border: none;
-    cursor: pointer;
     margin-bottom: 2px;
     display: list-item;
 }
 
-#start-quiz {
+#start {
     margin: 0 auto;
     display: block;
 }
 
-button:hover {
-    opacity: 0.6;
+p {
+    text-align: center;
 }

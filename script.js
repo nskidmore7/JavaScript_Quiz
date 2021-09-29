@@ -1,36 +1,36 @@
-var viewHighscores = document.querySelector("#view-highscores");
+var viewHighscores = document.querySelector("#highscore");
 var secondsDisplay = document.querySelector("#seconds");
 var timeLabel = document.querySelector(".time");
 var container = document.querySelector(".container");
-var headerDisplay = document.querySelector("#header");
+var headerDisplay = document.querySelector("#title");
 var quizInstructions = document.querySelector("#quiz-instructions");
-var startButton = document.querySelector("#start-quiz");
+var startButton = document.querySelector("#start");
 
 
 var interval;
 var seconds = 75;
-var quizQuestion;
-var optionOneBtn;
-var optionTwoBtn;
-var optionThreeBtn;
-var optionFourBtn;
+var Question;
+var optionA;
+var optionB;
+var optionC;
+var optionD;
 var line;
-var correctAnswer;
-var wrongAnswer;
+var correct;
+var wrong;
 var scoreMessage;
 var label;
 var input;
-var submitButton;
+var submit;
 var highScoresList;
-var goBackBtn;
-var clearHsBtn;
+var goBackbutton;
+var clearHs;
 var score = 100;
 var user;
 var scoreItem; 
 
 
 function startTimer(){
-    firstQuestion();
+    QuestionOne();
     interval = setInterval(function() {
         seconds--;
         secondsDisplay.textContent = seconds;
@@ -40,35 +40,35 @@ function startTimer(){
     }, 1000);
 }
 
-function firstQuestion(){
+function QuestionOne(){
     removeQuizIntro();
     createQuestionElements();
-    quizQuestion.innerHTML = "Where in the HTML file should a JavaScript link be placed?";
-    optionOneBtn.innerHTML = "1. Top";
-    optionTwoBtn.innerHTML = "2. Middle";
-    optionThreeBtn.innerHTML = "3. Bottom";
-    optionFourBtn.innerHTML = "4. Right";
-    optionOneBtn.onclick = function(){
-        secondQuestion();
+    Question.innerHTML = "Where in the HTML file should a JavaScript link be placed?";
+    optionA.innerHTML = "A. Top";
+    optionB.innerHTML = "B. Middle";
+    optionC.innerHTML = "C. Bottom";
+    optionD.innerHTML = "D. Right";
+    optionA.onclick = function(){
+        QuestionTwo();
         deductTime();
         createLine();
         wrongAns();
         deductScore();
     }
-    optionTwoBtn.onclick = function(){
-        secondQuestion();
+    optionB.onclick = function(){
+        QuestionTwo();
         deductTime();
         createLine();
         wrongAns();
         deductScore();
     }
-    optionThreeBtn.onclick = function(){
-        secondQuestion();
+    optionC.onclick = function(){
+        QuestionTwo();
         createLine();
         correctAns();
     }
-    optionFourBtn.onclick = function(){
-        secondQuestion();
+    optionD.onclick = function(){
+        QuestionTwo();
         deductTime();
         createLine();
         wrongAns();
@@ -76,34 +76,34 @@ function firstQuestion(){
     }
 }
 
-function secondQuestion(){
-    quizQuestion.innerHTML = "In JavaScript, what is a block of code used to perform a particular task called?";
-    optionOneBtn.innerHTML = "1. Function";
-    optionTwoBtn.innerHTML = "2. Array";
-    optionThreeBtn.innerHTML = "3. Element";
-    optionFourBtn.innerHTML = "4. Button";
+function QuestionTwo(){
+    Question.innerHTML = "In JavaScript, what is a block of code used to perform a particular task called?";
+    optionA.innerHTML = "A. Function";
+    optionB.innerHTML = "B. Array";
+    optionC.innerHTML = "C. Element";
+    optionD.innerHTML = "D. Button";
     removeAns();
-    optionOneBtn.onclick = function(){
-        thirdQuestion();
+    optionA.onclick = function(){
+        QuestionThree();
         createLine();
         correctAns();
     }
-    optionTwoBtn.onclick = function(){
-        thirdQuestion();
+    optionB.onclick = function(){
+        QuestionThree();
         deductTime();
         createLine();
         wrongAns();
         deductScore();
     }
-    optionThreeBtn.onclick = function(){
-        thirdQuestion();
+    optionC.onclick = function(){
+        QuestionThree();
         deductTime();
         createLine();
         wrongAns();
         deductScore();
     }
-    optionFourBtn.onclick = function(){
-        thirdQuestion();
+    optionD.onclick = function(){
+        QuestionThree();
         deductTime();
         createLine();
         wrongAns();
@@ -111,34 +111,34 @@ function secondQuestion(){
     }
 }
 
-function thirdQuestion(){
-    quizQuestion.innerHTML = "In JavaScript, what is the correct method to share something with a user?";
-    optionOneBtn.innerHTML = "1. Prompt";
-    optionTwoBtn.innerHTML = "2. Alert";
-    optionThreeBtn.innerHTML = "3. Confirm";
-    optionFourBtn.innerHTML = "4. Siren";
+function QuestionThree(){
+    Question.innerHTML = "In JavaScript, what is the correct method to share something with a user?";
+    optionA.innerHTML = "A. Prompt";
+    optionB.innerHTML = "B. Alert";
+    optionC.innerHTML = "C. Confirm";
+    optionD.innerHTML = "D. Siren";
     removeAns();
-    optionOneBtn.onclick = function(){
-        fourthQuestion();
+    optionA.onclick = function(){
+        QuestionFour();
         deductTime();
         createLine();
         wrongAns();
         deductScore();
     }
-    optionTwoBtn.onclick = function(){
-        fourthQuestion();
+    optionB.onclick = function(){
+        QuestionFour();
         createLine();
         correctAns();
     }
-    optionThreeBtn.onclick = function(){
-        fourthQuestion();
+    optionC.onclick = function(){
+        QuestionFour();
         deductTime();
         createLine();
         wrongAns();
         deductScore();
     }
-    optionFourBtn.onclick = function(){
-        fourthQuestion();
+    optionD.onclick = function(){
+        QuestionFour();
         deductTime();
         createLine();
         wrongAns();
@@ -146,68 +146,68 @@ function thirdQuestion(){
     }
 }
 
-function fourthQuestion(){
-    quizQuestion.innerHTML = "How do you declare a variable in JavaScript?";
-    optionOneBtn.innerHTML = "1. variable newVariable; ";
-    optionTwoBtn.innerHTML = "2. va Newvariable; ";
-    optionThreeBtn.innerHTML = "3. v newVariable; ";
-    optionFourBtn.innerHTML = "4. var newVariable; ";
+function QuestionFour(){
+    Question.innerHTML = "How do you declare a variable in JavaScript?";
+    optionA.innerHTML = "A. variable newVariable; ";
+    optionB.innerHTML = "B. va Newvariable; ";
+    optionC.innerHTML = "C. v newVariable; ";
+    optionD.innerHTML = "D. var newVariable; ";
     removeAns();
-    optionOneBtn.onclick = function(){
-        fifthQuestion();
+    optionA.onclick = function(){
+        QuestionFive();
         deductTime();
         createLine();
         wrongAns();
         deductScore();
     }
-    optionTwoBtn.onclick = function(){
-        fifthQuestion();
+    optionB.onclick = function(){
+        QuestionFive();
         deductTime();
         createLine();
         wrongAns();
         deductScore();
     }
-    optionThreeBtn.onclick = function(){
-        fifthQuestion();
+    optionC.onclick = function(){
+        QuestionFive();
         deductTime();
         createLine();
         wrongAns();
         deductScore();
     }
-    optionFourBtn.onclick = function(){
-        fifthQuestion();
+    optionD.onclick = function(){
+        QuestionFive();
         createLine();
         correctAns();
     }
 }
 
-function fifthQuestion(){
-    quizQuestion.innerHTML = "In Javascript, how do you capture an event triggered by the user?";
-    optionOneBtn.innerHTML = "1. Alert";
-    optionTwoBtn.innerHTML = "2. For loop";
-    optionThreeBtn.innerHTML = "3. Event listener";
-    optionFourBtn.innerHTML = "4. While loop";
+function QuestionFive(){
+    Question.innerHTML = "In Javascript, how do you capture an event triggered by the user?";
+    optionA.innerHTML = "A. Alert";
+    optionB.innerHTML = "B. For loop";
+    optionC.innerHTML = "C. Event listener";
+    optionD.innerHTML = "D. While loop";
     removeAns();
-    optionOneBtn.onclick = function(){
+    optionA.onclick = function(){
         allDone();
         deductTime();
         createLine();
         wrongAns();
         deductScore();
     }
-    optionTwoBtn.onclick = function(){
+    optionB.onclick = function(){
         allDone();
         deductTime();
         createLine();
         wrongAns();
         deductScore();
     }
-    optionThreeBtn.onclick = function(){
+    optionC.onclick = function(){
         allDone();
         createLine();
         correctAns();
     }
-    optionFourBtn.onclick = function(){
+    optionD.onclick = function(){
         allDone();
         deductTime();
         createLine();
@@ -221,11 +221,11 @@ function allDone(){
     removeQuizBtns();
     removeAns();
     createAllDoneElements();
-    quizQuestion.innerHTML = "All done!";
-    scoreMessage.textContent = "Your final score is " + score;
+    Question.innerHTML = "Complete";
+    scoreMessage.textContent = "Final Score = " + score;
     label.textContent = "Enter Initials: ";
-    submitButton.innerHTML = "Submit";
-    submitButton.onclick = function(){
+    submit.innerHTML = "Submit";
+    submit.onclick = function(){
         saveUser();
         highScores();
     }
@@ -235,12 +235,12 @@ function highScores(){
     hideNav();
     removeAllDone();
     createHighscoresElements(); 
-    clearHsBtn.onclick = function(){
+    clearHs.onclick = function(){
         localStorage.removeItem("user");
         localStorage.removeItem("score");
         highScoresList.remove();
     }
-    goBackBtn.onclick = function(){
+    goBackbutton.onclick = function(){
         goBack();
     }
 }
@@ -253,20 +253,20 @@ function goBack(){
 function removeQuizIntro(){
     headerDisplay.style.display = "none";
     quizInstructions.style.display = "none";
-    startButton.style.display = "none";
+    start.style.display = "none";
 }
 
 function createQuestionElements(){
-    quizQuestion = document.createElement("h2");
-    container.appendChild(quizQuestion);
-    optionOneBtn = document.createElement("button");
-    container.appendChild(optionOneBtn);
-    optionTwoBtn = document.createElement("button");
-    container.appendChild(optionTwoBtn);
-    optionThreeBtn = document.createElement("button");
-    container.appendChild(optionThreeBtn);
-    optionFourBtn = document.createElement("button");
-    container.appendChild(optionFourBtn);
+    Question = document.createElement("h2");
+    container.appendChild(Question);
+    optionA = document.createElement("button");
+    container.appendChild(optionA);
+    optionB = document.createElement("button");
+    container.appendChild(optionB);
+    optionC = document.createElement("button");
+    container.appendChild(optionC);
+    optionD = document.createElement("button");
+    container.appendChild(optionD);
 }
 
 function createLine(){
@@ -277,21 +277,21 @@ function createLine(){
 function removeAns(){ 
     setTimeout(() => {
         line.remove();
-        correctAnswer.remove();
-        wrongAnswer.remove();
+        correct.remove();
+        wrong.remove();
     }, 500)
 }
 
 function correctAns(){
-    correctAnswer = document.createElement("p");
-    correctAnswer.textContent = "Correct!";
-    container.appendChild(correctAnswer);
+    correct = document.createElement("p");
+    correct.textContent = "Correct!";
+    container.appendChild(correct);
 }
 
 function wrongAns(){
-    wrongAnswer = document.createElement("p");
-    wrongAnswer.textContent = "Wrong!";
-    container.appendChild(wrongAnswer);
+    wrong = document.createElement("p");
+    wrong.textContent = "Wrong!";
+    container.appendChild(wrong);
 }
 
 
@@ -305,10 +305,10 @@ function deductScore(){
 }
 
 function removeQuizBtns(){
-    optionOneBtn.remove();
-    optionTwoBtn.remove();
-    optionThreeBtn.remove();
-    optionFourBtn.remove();
+    optionA.remove();
+    optionB.remove();
+    optionC.remove();
+    optionD.remove();
 }
 
 function createAllDoneElements(){
@@ -318,10 +318,10 @@ function createAllDoneElements(){
     container.appendChild(label);
     input = document.createElement("input");
     container.appendChild(input);
-    submitButton = document.createElement("button");
-    submitButton.style.display = "inline";
-    submitButton.style.marginLeft = "5px";
-    container.appendChild(submitButton);
+    submit = document.createElement("button");
+    submit.style.display = "inline";
+    submit.style.marginLeft = "5px";
+    container.appendChild(submit);
 }
 
 function saveUser(){
@@ -340,33 +340,33 @@ function removeAllDone(){
     scoreMessage.remove();
     label.remove();
     input.remove();
-    submitButton.remove();
+    submit.remove();
 }
 
 function createHighscoresElements(){
-    quizQuestion.innerHTML = "Highscores";
+    Question.innerHTML = "Highscores";
     highScoresList = document.createElement("ol");
     highScoresList.style.backgroundColor = "violet";
     container.appendChild(highScoresList);
     scoreItem = document.createElement("li");
     scoreItem.textContent = localStorage.getItem("user") + "-" + localStorage.getItem("score");
     highScoresList.appendChild(scoreItem);
-    goBackBtn = document.createElement("button");
-    goBackBtn.innerHTML = "Go Back";
-    goBackBtn.style.display = "inline";
-    goBackBtn.style.marginRight = "5px";
-    container.appendChild(goBackBtn);
-    clearHsBtn = document.createElement("button");
-    clearHsBtn.innerHTML = "Clear Highscores";
-    clearHsBtn.style.display = "inline";
-    container.appendChild(clearHsBtn);
+    goBackbutton = document.createElement("button");
+    goBackbutton.innerHTML = "Go Back";
+    goBackbutton.style.display = "inline";
+    goBackbutton.style.marginRight = "5px";
+    container.appendChild(goBackbutton);
+    clearHs = document.createElement("button");
+    clearHs.innerHTML = "Clear Highscores";
+    clearHs.style.display = "inline";
+    container.appendChild(clearHs);
 }
 
 function removeHighscores(){
-    quizQuestion.remove();
+    Question.remove();
     highScoresList.remove();
-    goBackBtn.remove();
-    clearHsBtn.remove();
+    goBackbutton.remove();
+    clearHs.remove();
 }
 
 function addInitialPage(){
@@ -378,23 +378,23 @@ function addInitialPage(){
     timeLabel.style.visibility = "visible";
     headerDisplay.style.display = "block";
     quizInstructions.style.display = "block";
-    startButton.style.display = "block";
+    start.style.display = "block";
 }
 
 function viewHighscoresFunct(){
     hideNav();
     removeQuizIntro();
-    quizQuestion = document.createElement("h2");
-    container.appendChild(quizQuestion);
+    Question = document.createElement("h2");
+    container.appendChild(Question);
     createHighscoresElements(); 
-    clearHsBtn.onclick = function(){
+    clearHs.onclick = function(){
         localStorage.removeItem("user");
         localStorage.removeItem("score");
         highScoresList.remove();
     }
-    goBackBtn.onclick = function(){
+    goBackbutton.onclick = function(){
         goBack();
     }
 }
-startButton.addEventListener("click", startTimer);
+start.addEventListener("click", startTimer);
 viewHighscores.addEventListener("click", viewHighscoresFunct);
